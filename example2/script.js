@@ -5,11 +5,13 @@ import rhino3dm from 'https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/rhino3dm
 import { RhinoCompute } from 'https://cdn.jsdelivr.net/npm/compute-rhino3d@0.13.0-beta/compute.rhino3d.module.js'
 
 // reference the definition
-const definitionName = 'rnd_node.gh'
+const definitionName = 'rnd_node3.gh'
 
 // listen for slider change events
-const count_slider = document.getElementById( 'count' )
-count_slider.addEventListener( 'input', onSliderChange, false )
+const count1_slider = document.getElementById( 'count1' )
+count1_slider.addEventListener( 'input', onSliderChange, false )
+const count2_slider = document.getElementById( 'count2' )
+count2_slider.addEventListener( 'input', onSliderChange, false )
 const radius_slider = document.getElementById( 'radius' )
 radius_slider.addEventListener( 'input', onSliderChange, false )
 
@@ -49,19 +51,23 @@ async function compute() {
     // collect data
 
     // get slider values
-    let count = document.getElementById('count').valueAsNumber
+    let count1 = document.getElementById('count1').valueAsNumber
+    let count2 = document.getElementById('count2').valueAsNumber
     let radius = document.getElementById('radius').valueAsNumber
 
     // format data
     let param1 = new RhinoCompute.Grasshopper.DataTree('RH_IN:radius')
     param1.append([0], [radius])
-    let param2 = new RhinoCompute.Grasshopper.DataTree('RH_IN:count')
-    param2.append([0], [count])
+    let param2 = new RhinoCompute.Grasshopper.DataTree('RH_IN:count1')
+    param2.append([0], [count1])
+    let param2 = new RhinoCompute.Grasshopper.DataTree('RH_IN:count2')
+    param3.append([0], [count2])
 
     // Add all params to an array
     let trees = []
     trees.push(param1)
     trees.push(param2)
+    trees.push(param3)
 
     // Call RhinoCompute
 
@@ -164,8 +170,8 @@ function init() {
     // create a scene and a camera
     scene = new THREE.Scene()
     scene.background = new THREE.Color(1, 1, 1)
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-    camera.position.z = - 30
+    camera = new THREE.PerspectiveCamera(250, window.innerWidth / window.innerHeight, 0.1, 12000)
+    camera.position.z = - 500
 
     // create the renderer and add it to the html
     renderer = new THREE.WebGLRenderer({ antialias: true })
